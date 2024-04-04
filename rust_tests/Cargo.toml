@@ -1,0 +1,71 @@
+[package]
+name = "rusty_tests"
+version = "0.1.0"
+edition = "2021"
+
+[profile.release]            
+opt-level = 1
+lto = true
+
+[profile.dev]
+opt-level = 1
+lto = true
+
+
+[dependencies]
+
+cortex-m = "^0.7.7"      # Access to the generic ARM peripherals
+cortex-m-rt = "^0.7.3"  # Startup code for the ARM Core
+panic-halt = "^0.2.0"    # Panic handler
+micromath = "2.1.0"
+nb = "1.1.0"
+
+# ================ Pick the appropriate HAL crate for the MCU and comment out the rest =================== #
+
+#stm32f0xx-hal = { version = "0.18.0",  features = ["stm32f042"],               path = "dependencies/stm32f0xx-hal-0.18.0" }
+#stm32f1xx-hal = { version = "0.10.0",  features = ["stm32f100"],               path = "dependencies/stm32f1xx-hal-0.10.0" }
+#stm32f1xx-hal = { version = "0.10.0",  features = ["stm32f103"],               path = "dependencies/stm32f1xx-hal-0.10.0" }
+#stm32f1xx-hal = { version = "0.10.0",  features = ["rt", "stm32f107"],         path = "dependencies/stm32f1xx-hal-master" }
+
+# ==== STM32F217ZG uses STM32f205 feature as it does not support STM32F217 currently ==== #
+#stm32f2xx-hal = { version = "0.10.0",  features = ["rt", "stm32f205"],         path = "dependencies/stm32f2xx-hal-master" }
+
+# ==== STM32F373VC uses STM32F303XC feature as it has been written in the README file of the stm32f3xx-hal dependency ==== #
+#stm32f3xx-hal = { version = "0.10.0",  features = ["ld", "rt", "stm32f303xc"], path = "dependencies/stm32f3xx-hal-0.10.0" }
+
+#stm32f4xx-hal = { version = "0.20.0",  features = ["stm32f469"],               path = "dependencies/stm32f4xx-hal-0.20.0" }
+#stm32f4xx-hal = { version = "0.20.0",  features = ["stm32f411"],               path = "dependencies/stm32f4xx-hal-0.20.0" }
+#stm32f7xx-hal = { version = "0.7.0",   features = ["stm32f723"],               path = "dependencies/stm32f7xx-hal-0.7.0"  }
+#stm32g0xx-hal = { version = "0.2.0",   features = ["stm32g070"],               path = "dependencies/stm32g0xx-hal-0.2.0"  }
+#stm32h7xx-hal = { version = "0.16.0",  features = ["stm32h753", "rt"],         path = "dependencies/stm32h7xx-hal-master" }
+#stm32l0xx-hal = { version = "0.10.0",  features = ["mcu-STM32L073RZTx", "rt"], path = "dependencies/stm32l0xx-hal-0.10.0" }
+
+# ==== To test STM32L152RE you will have to comment the cortex-m-rt version above and use the one below ==== #
+
+#stm32l1xx-hal = { version = "0.1.0",   features = ["stm32l152", "rt"],         path = "dependencies/stm32l1xx-hal-master" }
+#cortex-m-rt   = { version = "^0.6.15", features = ["device"] }
+
+#stm32l4xx-hal = { version = "0.7.1",   features = [ "stm32l432"], path = "dependencies/stm32l4xx-hal-master" }
+
+# ======== Import core_library ======== 
+
+rusty-sdk = { path = "../system" }
+
+# =========== Conditional compilation ===========
+
+[features]
+
+stm32f042c6 = ["rusty-sdk/stm32f042c6"]
+stm32f103rc = ["rusty-sdk/stm32f103rc"]
+stm32f107vc = ["rusty-sdk/stm32f107vc"]
+stm32f100ze = ["rusty-sdk/stm32f100ze"]
+stm32f217zg = ["rusty-sdk/stm32f217zg"]
+stm32f373vc = ["rusty-sdk/stm32f373vc"]
+stm32f411re = ["rusty-sdk/stm32f411re"]
+stm32f469ii = ["rusty-sdk/stm32f469ii"]
+stm32f723ze = ["rusty-sdk/stm32f723ze"]
+stm32g070rb = ["rusty-sdk/stm32g070rb"]
+stm32h753zi = ["rusty-sdk/stm32h753zi"]
+stm32l073rz = ["rusty-sdk/stm32l073rz"]
+stm32l152re = ["rusty-sdk/stm32l152re"]
+stm32l432kc = ["rusty-sdk/stm32l432kc"]

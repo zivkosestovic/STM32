@@ -1,0 +1,33 @@
+on:
+  push:
+    branches: [ staging, trying, master ]
+  pull_request:
+
+name: Continuous integration
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mcu:
+          - stm32f205
+          - stm32f215
+          - stable
+        include:
+          - rust: nightly
+            mcu: stm32f215
+            experimental: true
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          target: thumbv7m-none-eabi
+          override: true
+      - uses: actions-rs/cargo@v1
+        with:
+          command: check
+          args: --features=${{ matrix.mcu }},rt,usb_fs,sdio --examples

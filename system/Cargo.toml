@@ -1,0 +1,21 @@
+[package]
+name = "rusty-sdk"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+
+stm32f042c6 = []
+stm32f100ze = []
+stm32f103rc = []
+stm32f107vc = []
+stm32f217zg = []
+stm32f373vc = []
+stm32f411re = []
+stm32f469ii = []
+stm32f723ze = []
+stm32g070rb = []
+stm32h753zi = []
+stm32l073rz = []
+stm32l152re = []
+stm32l432kc = []
